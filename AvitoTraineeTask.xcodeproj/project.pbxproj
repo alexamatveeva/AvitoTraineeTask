@@ -15,6 +15,8 @@
 		A81700E828C8A41F008C7FD1 /* EmployeesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81700E728C8A41F008C7FD1 /* EmployeesListViewController.swift */; };
 		A81700EB28C8A6D1008C7FD1 /* EmployeesListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81700EA28C8A6D1008C7FD1 /* EmployeesListModel.swift */; };
 		A81700ED28C8ABB2008C7FD1 /* EmployeesListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81700EC28C8ABB2008C7FD1 /* EmployeesListManager.swift */; };
+		A8C73CE328CB670D007D7162 /* EmployeesListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C73CE128CB670D007D7162 /* EmployeesListTableViewCell.swift */; };
+		A8C73CE428CB670D007D7162 /* EmployeesListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8C73CE228CB670D007D7162 /* EmployeesListTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		A81700E728C8A41F008C7FD1 /* EmployeesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesListViewController.swift; sourceTree = "<group>"; };
 		A81700EA28C8A6D1008C7FD1 /* EmployeesListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesListModel.swift; sourceTree = "<group>"; };
 		A81700EC28C8ABB2008C7FD1 /* EmployeesListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesListManager.swift; sourceTree = "<group>"; };
+		A8C73CE128CB670D007D7162 /* EmployeesListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesListTableViewCell.swift; sourceTree = "<group>"; };
+		A8C73CE228CB670D007D7162 /* EmployeesListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmployeesListTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,8 @@
 				A81700E528C8898F008C7FD1 /* EmployeesListData.swift */,
 				A81700EA28C8A6D1008C7FD1 /* EmployeesListModel.swift */,
 				A81700EC28C8ABB2008C7FD1 /* EmployeesListManager.swift */,
+				A8C73CE128CB670D007D7162 /* EmployeesListTableViewCell.swift */,
+				A8C73CE228CB670D007D7162 /* EmployeesListTableViewCell.xib */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -139,6 +145,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8C73CE428CB670D007D7162 /* EmployeesListTableViewCell.xib in Resources */,
 				A81700DE28C885A5008C7FD1 /* LaunchScreen.storyboard in Resources */,
 				A81700DB28C885A5008C7FD1 /* Assets.xcassets in Resources */,
 			);
@@ -155,6 +162,7 @@
 				A81700EB28C8A6D1008C7FD1 /* EmployeesListModel.swift in Sources */,
 				A81700D628C885A2008C7FD1 /* ViewController.swift in Sources */,
 				A81700ED28C8ABB2008C7FD1 /* EmployeesListManager.swift in Sources */,
+				A8C73CE328CB670D007D7162 /* EmployeesListTableViewCell.swift in Sources */,
 				A81700E828C8A41F008C7FD1 /* EmployeesListViewController.swift in Sources */,
 				A81700D228C885A2008C7FD1 /* AppDelegate.swift in Sources */,
 			);

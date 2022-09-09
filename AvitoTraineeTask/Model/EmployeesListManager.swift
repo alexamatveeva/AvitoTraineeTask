@@ -15,12 +15,14 @@ protocol EmployeesListManagerDelegate {
 struct EmployeesListManager {
     var delegate: EmployeesListManagerDelegate?
     
+    var dataTask: URLSessionDataTask?
+    
     
     func fetchEmployeesListManager() {
         let urlString = "https://run.mocky.io/v3/1d1cb4ec-73db-4762-8c4b-0b8aa3cecd4c"
         
         if let url = URL(string: urlString) {
-            let urlSession = URLSession(configuration: .default)
+            let urlSession = URLSession.shared
             let task = urlSession.dataTask(with: url) { data, response, error in
                 if error != nil {
                     self.delegate?.failWithError(error: error!)
@@ -41,6 +43,7 @@ struct EmployeesListManager {
             
             task.resume()
             
+            //self.dataTask = task
         }
     }
     

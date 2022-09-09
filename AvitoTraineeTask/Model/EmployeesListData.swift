@@ -28,5 +28,20 @@ struct Employee: Codable {
     let name: String
     let phone_number: String
     let skills: [String]
+    
+    var allSkills: String {
+        var skillsString = ""
+        
+        for i in skills {
+            if i == skills[0] {
+                skillsString = skillsString + "" + i
+            } else {
+                skillsString = skillsString + ", " + i
+            }
+            
+        }
+        
+        return skillsString
+    }
 }
 
