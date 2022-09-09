@@ -8,22 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		A81700D228C885A2008C7FD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81700D128C885A2008C7FD1 /* AppDelegate.swift */; };
-		A81700D428C885A2008C7FD1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81700D328C885A2008C7FD1 /* SceneDelegate.swift */; };
 		A81700D628C885A2008C7FD1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81700D528C885A2008C7FD1 /* ViewController.swift */; };
-		A81700D928C885A2008C7FD1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A81700D728C885A2008C7FD1 /* Main.storyboard */; };
 		A81700DB28C885A5008C7FD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A81700DA28C885A5008C7FD1 /* Assets.xcassets */; };
 		A81700DE28C885A5008C7FD1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A81700DC28C885A5008C7FD1 /* LaunchScreen.storyboard */; };
+		A81700E628C8898F008C7FD1 /* EmployeesListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81700E528C8898F008C7FD1 /* EmployeesListData.swift */; };
+		A81700E828C8A41F008C7FD1 /* EmployeesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81700E728C8A41F008C7FD1 /* EmployeesListViewController.swift */; };
+		A81700EB28C8A6D1008C7FD1 /* EmployeesListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81700EA28C8A6D1008C7FD1 /* EmployeesListModel.swift */; };
+		A81700ED28C8ABB2008C7FD1 /* EmployeesListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81700EC28C8ABB2008C7FD1 /* EmployeesListManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A81700CE28C885A2008C7FD1 /* AvitoTraineeTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AvitoTraineeTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A81700D128C885A2008C7FD1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A81700D328C885A2008C7FD1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A81700D528C885A2008C7FD1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		A81700D828C885A2008C7FD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A81700DA28C885A5008C7FD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A81700DD28C885A5008C7FD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A81700DF28C885A5008C7FD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A81700E528C8898F008C7FD1 /* EmployeesListData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesListData.swift; sourceTree = "<group>"; };
+		A81700E728C8A41F008C7FD1 /* EmployeesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesListViewController.swift; sourceTree = "<group>"; };
+		A81700EA28C8A6D1008C7FD1 /* EmployeesListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesListModel.swift; sourceTree = "<group>"; };
+		A81700EC28C8ABB2008C7FD1 /* EmployeesListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesListManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +60,25 @@
 		A81700D028C885A2008C7FD1 /* AvitoTraineeTask */ = {
 			isa = PBXGroup;
 			children = (
+				A81700E928C8A4EC008C7FD1 /* Model */,
 				A81700D128C885A2008C7FD1 /* AppDelegate.swift */,
-				A81700D328C885A2008C7FD1 /* SceneDelegate.swift */,
-				A81700D528C885A2008C7FD1 /* ViewController.swift */,
-				A81700D728C885A2008C7FD1 /* Main.storyboard */,
+				A81700E728C8A41F008C7FD1 /* EmployeesListViewController.swift */,
 				A81700DA28C885A5008C7FD1 /* Assets.xcassets */,
 				A81700DC28C885A5008C7FD1 /* LaunchScreen.storyboard */,
 				A81700DF28C885A5008C7FD1 /* Info.plist */,
+				A81700D528C885A2008C7FD1 /* ViewController.swift */,
 			);
 			path = AvitoTraineeTask;
+			sourceTree = "<group>";
+		};
+		A81700E928C8A4EC008C7FD1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A81700E528C8898F008C7FD1 /* EmployeesListData.swift */,
+				A81700EA28C8A6D1008C7FD1 /* EmployeesListModel.swift */,
+				A81700EC28C8ABB2008C7FD1 /* EmployeesListManager.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,7 +141,6 @@
 			files = (
 				A81700DE28C885A5008C7FD1 /* LaunchScreen.storyboard in Resources */,
 				A81700DB28C885A5008C7FD1 /* Assets.xcassets in Resources */,
-				A81700D928C885A2008C7FD1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,23 +151,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A81700E628C8898F008C7FD1 /* EmployeesListData.swift in Sources */,
+				A81700EB28C8A6D1008C7FD1 /* EmployeesListModel.swift in Sources */,
 				A81700D628C885A2008C7FD1 /* ViewController.swift in Sources */,
+				A81700ED28C8ABB2008C7FD1 /* EmployeesListManager.swift in Sources */,
+				A81700E828C8A41F008C7FD1 /* EmployeesListViewController.swift in Sources */,
 				A81700D228C885A2008C7FD1 /* AppDelegate.swift in Sources */,
-				A81700D428C885A2008C7FD1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		A81700D728C885A2008C7FD1 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A81700D828C885A2008C7FD1 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		A81700DC28C885A5008C7FD1 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -292,7 +300,6 @@
 				INFOPLIST_FILE = AvitoTraineeTask/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -320,7 +327,6 @@
 				INFOPLIST_FILE = AvitoTraineeTask/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
