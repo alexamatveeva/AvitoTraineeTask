@@ -34,7 +34,7 @@ extension EmployeesListViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(EmployeesListTableViewCell.nib, forCellReuseIdentifier: EmployeesListTableViewCell.identifier)
+        tableView.register(EmployeesListTableViewCell.self, forCellReuseIdentifier: EmployeesListTableViewCell.identifier)
         
     }
     
