@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct EmployeesListData: Codable {
+class EmployeesListData: Codable {
     let company: Company
 }
 
-struct Company: Codable {
+class Company: Codable {
     let name: String
-    let employees: [Employee]
+    var employees: [Employee]
     
     var sortedEmployees: [Employee] {
         let sortedEmployees = employees.sorted(by: { employee1, employee2 in
@@ -24,7 +24,7 @@ struct Company: Codable {
     }
 }
 
-struct Employee: Codable {
+class Employee: Codable {
     let name: String
     let phone_number: String
     let skills: [String]

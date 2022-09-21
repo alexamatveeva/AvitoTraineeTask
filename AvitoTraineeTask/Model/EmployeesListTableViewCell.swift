@@ -37,7 +37,7 @@ extension EmployeesListTableViewCell {
         stackView.spacing = 4
         
         employeeNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        employeeNameLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        employeeNameLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         employeeNameLabel.text = "Name"
         employeeNameLabel.textColor = . label
         
