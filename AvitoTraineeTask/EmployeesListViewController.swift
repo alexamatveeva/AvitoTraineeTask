@@ -21,7 +21,7 @@ class EmployeesListViewController: UIViewController {
     
 //    private var result: Result<EmployeesListData, Error>?
     
-    let searchTextField = UISearchTextField()
+    let searchBar = UISearchBar()
     let companyNameLabel = UILabel()
     
     
@@ -40,22 +40,9 @@ extension EmployeesListViewController {
     func setup() {
         
         employeesListManager.delegate = self
-        employeesListManager.fetchEmployeesListManager() { result in
-//            self.result = result
-            
-            switch result {
-            case .success(let list):
-                self.employeesList = list
-                self.updateData(employeesListData: list)
-            case .failure(let error):
-                self.failWithError(error: error)
-            case .none:
-                print("non switch")
-            }
-            
-        }
+        fetchAllData()
         
-        searchTextField.delegate = self
+        searchBar.delegate = self
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -72,10 +59,12 @@ extension EmployeesListViewController {
         companyNameLabel.text = "Company"
         companyNameLabel.textColor = .label
         
-        searchTextField.translatesAutoresizingMaskIntoConstraints = false
-        searchTextField.placeholder = "Search employee"
-        searchTextField.autocapitalizationType = .words
-        searchTextField.returnKeyType = .search
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.placeholder = "Search employee"
+        searchBar.autocapitalizationType = .words
+        searchBar.returnKeyType = .search
+        searchBar.layer.borderWidth = 1;
+        searchBar.layer.borderColor = CGColor(gray: 1, alpha: 1)
         
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -87,7 +76,7 @@ extension EmployeesListViewController {
     
     func layout() {
         view.addSubview(companyNameLabel)
-        view.addSubview(searchTextField)
+        view.addSubview(searchBar)
         view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
@@ -96,11 +85,11 @@ extension EmployeesListViewController {
             companyNameLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: view.safeAreaLayoutGuide.leadingAnchor, multiplier: 2),
             view.trailingAnchor.constraint(equalToSystemSpacingAfter: companyNameLabel.trailingAnchor, multiplier: 2),
             
-            searchTextField.topAnchor.constraint(equalToSystemSpacingBelow: companyNameLabel.bottomAnchor, multiplier: 1),
-            searchTextField.leadingAnchor.constraint(equalTo: companyNameLabel.leadingAnchor),
-            searchTextField.trailingAnchor.constraint(equalTo: companyNameLabel.trailingAnchor),
+            searchBar.topAnchor.constraint(equalToSystemSpacingBelow: companyNameLabel.bottomAnchor, multiplier: 1),
+            searchBar.leadingAnchor.constraint(equalToSystemSpacingAfter: view.safeAreaLayoutGuide.leadingAnchor, multiplier: 1),
+            view.trailingAnchor.constraint(equalToSystemSpacingAfter: searchBar.trailingAnchor, multiplier: 1),
             
-            tableView.topAnchor.constraint(equalToSystemSpacingBelow: searchTextField.bottomAnchor, multiplier: 2),
+            tableView.topAnchor.constraint(equalToSystemSpacingBelow: searchBar.bottomAnchor, multiplier: 2),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -129,6 +118,22 @@ extension EmployeesListViewController {
     //                }
     //            }
     //    }
+    
+    func fetchAllData() {
+        employeesListManager.fetchEmployeesListManager() { result in
+            
+            switch result {
+            case .success(let list):
+                self.employeesList = list
+                self.updateData(employeesListData: list)
+            case .failure(let error):
+                self.failWithError(error: error)
+            case .none:
+                print("non switch")
+            }
+            
+        }
+    }
 }
 
 
@@ -195,28 +200,14 @@ extension EmployeesListViewController: EmployeesListManagerDelegate {
     
 }
 
-//MARK: - UITextFieldDelegate
+//MARK: - UISearchBarDelegate
 
-extension EmployeesListViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        searchTextField.endEditing(true)
-        print(searchTextField.text!) //напечатает что там набрал в текст филде, по нажатию кнопки на клавиатуре
-        return true
-    }
+extension EmployeesListViewController: UISearchBarDelegate {
     
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if searchTextField.text != "" {
-            return true
-        } else {
-            searchTextField.placeholder = "Type name of employee"
-            return false
-        }
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if let query = searchTextField.text {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if let query = searchBar.searchTextField.text {
             employeesListManager.fetchEmployeesListManager(query: query, completion: { result in
-    //            self.result = result
+                //            self.result = result
                 
                 switch result {
                 case .success(let list):
@@ -230,9 +221,10 @@ extension EmployeesListViewController: UITextFieldDelegate {
                 
             })
         }
-        
-        searchTextField.text = ""
-        
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        fetchAllData()
     }
     
     
