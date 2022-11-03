@@ -9,17 +9,16 @@ import UIKit
 
 class EmployeesListViewController: UIViewController {
     
-    var employeesListManager = EmployeesListManager()
-    
-    var timer = Timer()
-    
-    var secondsPassed = 0
-    
+    var employeesListManager: EmployeesListManageable = EmployeesListManager()
     
     private var employeesList: EmployeesListData?
-    //    private var filteredEmployees: [Employee]?
     
-//    private var result: Result<EmployeesListData, Error>?
+    // Error alert
+    lazy var errorAlert: UIAlertController = {
+        let alert =  UIAlertController(title: "", message: "", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        return alert
+    }()
     
     let searchBar = UISearchBar()
     let companyNameLabel = UILabel()
@@ -38,9 +37,7 @@ class EmployeesListViewController: UIViewController {
 
 extension EmployeesListViewController {
     func setup() {
-        
-        employeesListManager.delegate = self
-        fetchAllData()
+        fetchData()
         
         searchBar.delegate = self
         
@@ -96,43 +93,46 @@ extension EmployeesListViewController {
         ])
     }
     
-    //    func setTimer() {
-    //
-    //        let totalTime = 20
-    //
-    //        timer.invalidate()
-    //
-    //        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (Timer) in
-    //            if self.secondsPassed < totalTime {
-    //                    self.secondsPassed += 1
-    //                print("second passed = \(self.secondsPassed)")
-    //                } else {
-    //                    Timer.invalidate()
-    //                    self.secondsPassed = 0
-    ////                    self.employeesListManager.infoCache.removeAllObjects()
-    //                    self.employeesListManager.fetchEmployeesListManager() { employeesList in
-    //                        self.employeesList = employeesList
-    //                    }
-    //                    print("time ended")
-    //
-    //                }
-    //            }
-    //    }
     
-    func fetchAllData() {
-        employeesListManager.fetchEmployeesListManager() { result in
-            
+    func fetchData(query: String = "") {
+        employeesListManager.fetchEmployeesList(query: query) { result in
             switch result {
             case .success(let list):
                 self.employeesList = list
-                self.updateData(employeesListData: list)
+                self.updateData()
             case .failure(let error):
-                self.failWithError(error: error)
-            case .none:
-                print("non switch")
+                self.displayError(error)
+                
             }
             
         }
+    }
+    
+    private func displayError(_ error: NetworkError) {
+        let titleAndMessage = titleAndMessage(for: error)
+        self.showErrorAlert(title: titleAndMessage.0, message: titleAndMessage.1)
+    }
+
+    private func titleAndMessage(for error: NetworkError) -> (String, String) {
+        let title: String
+        let message: String
+        switch error {
+        case .serverError:
+            title = "Server Error"
+            message = "We could not process your request. Please try again."
+        case .decodingError:
+            title = "Network Error"
+            message = "Ensure you are connected to the internet. Please try again."
+        }
+        return (title, message)
+    }
+    
+    private func showErrorAlert(title: String, message: String) {
+        
+        errorAlert.title = title
+        errorAlert.message = message
+        
+        present(errorAlert, animated: true, completion: nil)
     }
 }
 
@@ -177,26 +177,21 @@ extension EmployeesListViewController: UITableViewDataSource {
 
 //MARK: - EmployeesListManagerDelegate
 
-extension EmployeesListViewController: EmployeesListManagerDelegate {
-    func updateData(employeesListData: EmployeesListData) {
-        employeesList = employeesListData
+extension EmployeesListViewController {
+    
+    func updateData() {
+        
+        guard let list = self.employeesList else { return }
         
         DispatchQueue.main.async {
-            self.companyNameLabel.text = self.employeesList?.company.name
+            self.companyNameLabel.text = list.company.name
             self.tableView.reloadData()
             
         }
         
-//        DispatchQueue.global(qos: .userInitiated).async {
-//            self.setTimer()
-//        }
-        
         
     }
     
-    func failWithError(error: Error) {
-        print(error)
-    }
     
 }
 
@@ -206,25 +201,14 @@ extension EmployeesListViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let query = searchBar.searchTextField.text {
-            employeesListManager.fetchEmployeesListManager(query: query, completion: { result in
-                //            self.result = result
-                
-                switch result {
-                case .success(let list):
-                    self.employeesList = list
-                    self.updateData(employeesListData: list)
-                case .failure(let error):
-                    self.failWithError(error: error)
-                case .none:
-                    print("non switch")
-                }
-                
-            })
+            fetchData(query: query)
         }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        fetchAllData()
+        if let query = searchBar.searchTextField.text {
+            fetchData(query: query)
+        }
     }
     
     

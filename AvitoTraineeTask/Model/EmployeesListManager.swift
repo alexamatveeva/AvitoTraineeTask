@@ -7,101 +7,47 @@
 
 import Foundation
 
-protocol EmployeesListManagerDelegate {
-    func updateData(employeesListData: EmployeesListData)
-    func failWithError(error: Error)
+protocol EmployeesListManageable: AnyObject {
+    func fetchEmployeesList(query: String, completion: @escaping(Result<EmployeesListData, NetworkError>) -> Void)
 }
 
-struct EmployeesListManager {
-    var delegate: EmployeesListManagerDelegate?
-    
-    //    var infoCache = NSCache<NSString, Result<EmployeesListData, Error>>()
-    
-    
-    func fetchEmployeesListManager(query: String = "", completion: @escaping(Result<EmployeesListData, Error>?) -> Void) {
-        let urlString = "https://run.mocky.io/v3/1d1cb4ec-73db-4762-8c4b-0b8aa3cecd4c"
+enum NetworkError: Error {
+    case serverError
+    case decodingError
+}
+
+class EmployeesListManager: EmployeesListManageable {
+    func fetchEmployeesList(query: String = "", completion: @escaping (Result<EmployeesListData, NetworkError>) -> Void) {
+        let url = URL(string: "https://run.mocky.io/v3/1d1cb4ec-73db-4762-8c4b-0b8aa3cecd4c")!
         
-        if let url = URL(string: urlString) {
-            let urlSession = URLSession.shared
-            let task = urlSession.dataTask(with: url) { data, response, error in
-                if error != nil {
-                    completion(Result.failure(error!))
-//                    self.delegate?.failWithError(error: error!) //Result.fail(error)
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            DispatchQueue.main.async {
+                guard let data = data, error == nil else {
+                    completion(.failure(.serverError))
                     return
                 }
                 
-                if let safeData = data {
-                    let decoder = JSONDecoder()
-                    
-                    do {
-                        let decodedData = try decoder.decode(EmployeesListData.self, from: safeData)
+                do {
+                    let employeesList = try JSONDecoder().decode(EmployeesListData.self, from: data)
+                    if query != "" {
+                        var tempListOfEmployee = employeesList.company.employees
+                        tempListOfEmployee.removeAll()
                         
-                        if query != "" {
-                            var tempListOfEmployee = decodedData.company.employees
-                            tempListOfEmployee.removeAll()
-                            
-                            for employee in decodedData.company.employees {
-                                if employee.name.lowercased().contains(query.lowercased()){
-                                    tempListOfEmployee.append(employee)
-                                }
+                        for employee in employeesList.company.employees {
+                            if employee.name.lowercased().contains(query.lowercased()){
+                                tempListOfEmployee.append(employee)
                             }
-                            
-                            decodedData.company.employees = tempListOfEmployee
                         }
                         
-                        
-                        
-                        DispatchQueue.main.async {
-                            completion(Result.success(decodedData))
-                        }
-                    } catch {
-                        print(error)
-                        //Result.fail(error)
+                        employeesList.company.employees = tempListOfEmployee
                     }
+                    completion(.success(employeesList))
+                } catch {
+                    completion(.failure(.decodingError))
                 }
+
             }
-            
-            task.resume()
-            
-        }
-        
-        //        if let cachedInfo = infoCache.object(forKey: "employeesListData") {
-        //            completion(cachedInfo)
-        //            self.delegate?.updateData(employeesListData: cachedInfo) //Result.Success(cachedInfo)
-        //            print("cached info loaded")
-        //        } else {
-        //            if let url = URL(string: urlString) {
-        //                let urlSession = URLSession.shared
-        //                let task = urlSession.dataTask(with: url) { data, response, error in
-        //                    if error != nil {
-        //                        self.delegate?.failWithError(error: error!) //Result.fail(error)
-        //                        return
-        //                    }
-        //
-        //                    if let safeData = data {
-        //                        let decoder = JSONDecoder()
-        //
-        //                        do {
-        //                            let decodedData = try decoder.decode(EmployeesListData.self, from: safeData)
-        //                            self.infoCache.setObject(decodedData, forKey: "employeesListData")
-        //
-        //                            print("decoded data and set cache")
-        //                            DispatchQueue.main.async {
-        //                                completion(decodedData)//Result.Success(decodedData)
-        //                            }
-        //                        } catch {
-        //                            print(error)
-        //                            //Result.fail(error)
-        //                        }
-        //                    }
-        //                }
-        //
-        //                task.resume()
-        //
-        //            }
-        //        }
-        
-        
+        }.resume()
     }
     
     
