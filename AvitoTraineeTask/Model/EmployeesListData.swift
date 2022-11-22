@@ -7,11 +7,11 @@
 
 import Foundation
 
-class EmployeesListData: Codable {
-    let company: Company
+struct EmployeesListData: Codable {
+    var company: Company
 }
 
-class Company: Codable {
+struct Company: Codable {
     let name: String
     var employees: [Employee]
     
@@ -24,7 +24,7 @@ class Company: Codable {
     }
 }
 
-class Employee: Codable {
+struct Employee: Codable {
     let name: String
     let phone_number: String
     let skills: [String]
@@ -45,3 +45,9 @@ class Employee: Codable {
     }
 }
 
+
+class EmployeesListDataObject {
+    let employeesList: EmployeesListData
+    
+    init(employeesList: EmployeesListData) { self.employeesList = employeesList }
+}

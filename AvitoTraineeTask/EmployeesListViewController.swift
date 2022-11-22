@@ -202,12 +202,16 @@ extension EmployeesListViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let query = searchBar.searchTextField.text {
             fetchData(query: query)
+        } else if searchBar.searchTextField.text == "" {
+            fetchData()
         }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if let query = searchBar.searchTextField.text {
             fetchData(query: query)
+        } else if searchBar.searchTextField.text == "" {
+            fetchData()
         }
     }
     
